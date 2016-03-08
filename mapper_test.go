@@ -86,7 +86,7 @@ func TestCustomKey(t *testing.T) {
 }
 
 func TestUnsupportedType(t *testing.T) {
-	err := MapQuery(nil, &Struct3{})
+	err := MapQuery(parseValues("http://a.b?keya="), &Struct3{})
 	if err == nil {
 		t.Error("did not error on unsupported type")
 	}
