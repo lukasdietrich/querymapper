@@ -9,7 +9,8 @@ import (
 )
 
 func getValue(v url.Values, key string) (string, bool) {
-	if s, ok := v[key]; !ok || len(s) == 0 {
+	s, ok := v[key]
+	if !ok || len(s) == 0 {
 		return "", false
 	}
 
@@ -37,28 +38,32 @@ func MapQuery(v url.Values, m interface{}) error {
 
 		switch fv.Kind() {
 		case r.Uint, r.Uint8, r.Uint16, r.Uint32, r.Uint64:
-			if val, err := strconv.ParseUint(sval, 10, 64); err != nil {
+			val, err := strconv.ParseUint(sval, 10, 64)
+			if err != nil {
 				return err
 			}
 
 			fv.SetUint(val)
 
 		case r.Int, r.Int8, r.Int16, r.Int32, r.Int64:
-			if val, err := strconv.ParseInt(sval, 10, 64); err != nil {
+			val, err := strconv.ParseInt(sval, 10, 64)
+			if err != nil {
 				return err
 			}
 
 			fv.SetInt(val)
 
 		case r.Float32, r.Float64:
-			if val, err := strconv.ParseFloat(sval, 64); err != nil {
+			val, err := strconv.ParseFloat(sval, 64)
+			if err != nil {
 				return err
 			}
 
 			fv.SetFloat(val)
 
 		case r.Bool:
-			if val, err := strconv.ParseBool(sval); err != nil {
+			val, err := strconv.ParseBool(sval)
+			if err != nil {
 				return err
 			}
 
